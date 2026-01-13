@@ -18,10 +18,16 @@ class CustomTextfield extends StatelessWidget {
         cursorColor: AppColor.gold,
         controller: controller,
         onChanged: onChanged,
+        style: TextStyle(
+          color: AppColor.gold,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
         decoration: InputDecoration(
           fillColor: AppColor.primary,
           hintText: hint,
          hintStyle: AppTextStyle.titleMedium ,
+
          border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
             borderSide: BorderSide(width: 2 , color: AppColor.gold,),

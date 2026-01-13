@@ -11,6 +11,7 @@ class CustomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     //List<Contact> contact = [] ;
     return Card(
+      color: AppColor.gold,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
@@ -19,19 +20,19 @@ class CustomCard extends StatelessWidget {
           Stack(
              children: [
                //image
-               Text(contact.name, style:  AppTextStyle.titleMedium,),
+               Text(contact.name, style:  AppTextStyle.button,),
              ],
           ),
           Row(
             children: [
               Icon(Icons.email_outlined, color: AppColor.primary,),
-              Text(contact.email , style: AppTextStyle.titleMedium,),
+              Expanded(child: Text(contact.email , style: AppTextStyle.button,)),
             ],
           ),
           Row(
             children: [
               Icon(Icons.phone, color: AppColor.primary,),
-              Text(contact.phone, style:  AppTextStyle.titleMedium,),
+              Text(contact.phone, style:  AppTextStyle.button,),
             ],
           ),
 

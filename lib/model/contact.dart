@@ -1,5 +1,5 @@
 class Contact {
-  final String image;
+  final String? image;
 
   final String name;
 
@@ -8,7 +8,7 @@ class Contact {
   final String phone;
 
   Contact({
-    required this.image,
+     this.image,
     required this.name,
     required this.email,
     required this.phone,

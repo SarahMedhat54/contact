@@ -1,18 +1,22 @@
 import 'package:contacts/core/app_color.dart';
 import 'package:contacts/core/app_textstyle.dart';
+import 'package:contacts/model/contact.dart';
 import 'package:contacts/widget/custom_button.dart';
 import 'package:contacts/widget/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-class CustomButtomsheet extends StatefulWidget {
-  CustomButtomsheet({super.key});
+class CustomBottomSheet extends StatefulWidget {
+  List<Contact> contacts;
+  VoidCallback onAdd;
+  CustomBottomSheet({required this.contacts,required this.onAdd, super.key});
+
 
   @override
-  State<CustomButtomsheet> createState() => _CustomButtomsheetState();
+  State<CustomBottomSheet> createState() => _CustomBottomSheetState();
 }
 
-class _CustomButtomsheetState extends State<CustomButtomsheet> {
+class _CustomBottomSheetState extends State<CustomBottomSheet> {
   final TextEditingController name = TextEditingController();
   final TextEditingController email = TextEditingController();
   final TextEditingController phone = TextEditingController();
@@ -36,6 +40,7 @@ class _CustomButtomsheetState extends State<CustomButtomsheet> {
           Row(
             children: [
               Container(
+                height: 144,
                 decoration: BoxDecoration(
                   border: Border.all(width: 2 , color: Colors.white),
                   borderRadius: BorderRadius.circular(16),
@@ -46,40 +51,42 @@ class _CustomButtomsheetState extends State<CustomButtomsheet> {
                 ),
               ),
               SizedBox(width: 8,) ,
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ValueListenableBuilder(
-                    valueListenable: nameValue,
-                    builder: (context, value, child) {
-                      return Text(
-                        value.isEmpty ? " User Name " : value,
-                        style: AppTextStyle.titleMedium,
-                      );
-                    },
-                  ),
-                  Divider(color: Colors.grey),
-                  ValueListenableBuilder(
-                    valueListenable: emailValue,
-                    builder: (context, value, child) {
-                      return Text(
-                        value.isEmpty ? " User Email" : value,
-                        style: AppTextStyle.titleMedium,
-                      );
-                    },
-                  ),
-                  Divider(color: Colors.grey),
-                  ValueListenableBuilder(
-                    valueListenable: phoneValue,
-                    builder: (context, value, child) {
-                      return Text(
-                        value.isEmpty ? "User Phone" : value,
-                        style: AppTextStyle.titleMedium,
-                      );
-                    },
-                  ),
+              Expanded(
+                  child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ValueListenableBuilder(
+                      valueListenable: nameValue,
+                      builder: (context, value, child) {
+                        return Text(
+                          value.isEmpty ? " User Name " : value,
+                          style: AppTextStyle.titleMedium,
+                        );
+                      },
+                    ),
+                    Divider(color: AppColor.gold),
+                    ValueListenableBuilder(
+                      valueListenable: emailValue,
+                      builder: (context, value, child) {
+                        return Text(
+                          value.isEmpty ? " User Email" : value,
+                          style: AppTextStyle.titleMedium,
+                        );
+                      },
+                    ),
+                    Divider(color: AppColor.gold),
+                    ValueListenableBuilder(
+                      valueListenable: phoneValue,
+                      builder: (context, value, child) {
+                        return Text(
+                          value.isEmpty ? "User Phone" : value,
+                          style: AppTextStyle.titleMedium,
+                        );
+                      },
+                    ),
 
-                ],
+                  ],
+                ),
               )
             ],
           ),
@@ -108,7 +115,17 @@ class _CustomButtomsheetState extends State<CustomButtomsheet> {
                     phoneValue.value = value;
                   },
                 ),
-                CustomButton(onPressed: () {}, text: "Enter User"),
+                Row(
+                  children: [
+                    Expanded(child: CustomButton(onPressed: () {
+                      widget.contacts.add(Contact(name: name.text, email: email.text, phone: phone.text));
+                      widget.onAdd();
+                      Navigator.pop(context);
+
+
+                    }, text: "Enter User")),
+                  ],
+                ),
               ],
             ),
           ),
