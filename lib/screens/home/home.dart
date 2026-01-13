@@ -36,6 +36,7 @@ List<Contact> contacts = [];
       appBar: CustomAppbar(),
       body: Column(
           children: [
+
             Expanded(
               child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,childAspectRatio: 0.68),
                 itemCount: contacts.length,

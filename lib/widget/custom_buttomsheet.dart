@@ -35,102 +35,104 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
           topRight: Radius.circular(20),
         ),
       ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Container(
-                height: 144,
-                decoration: BoxDecoration(
-                  border: Border.all(width: 2 , color: Colors.white),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Lottie.asset("assets/lottie/image_picker.json"),
-                ),
-              ),
-              SizedBox(width: 8,) ,
-              Expanded(
-                  child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ValueListenableBuilder(
-                      valueListenable: nameValue,
-                      builder: (context, value, child) {
-                        return Text(
-                          value.isEmpty ? " User Name " : value,
-                          style: AppTextStyle.titleMedium,
-                        );
-                      },
-                    ),
-                    Divider(color: AppColor.gold),
-                    ValueListenableBuilder(
-                      valueListenable: emailValue,
-                      builder: (context, value, child) {
-                        return Text(
-                          value.isEmpty ? " User Email" : value,
-                          style: AppTextStyle.titleMedium,
-                        );
-                      },
-                    ),
-                    Divider(color: AppColor.gold),
-                    ValueListenableBuilder(
-                      valueListenable: phoneValue,
-                      builder: (context, value, child) {
-                        return Text(
-                          value.isEmpty ? "User Phone" : value,
-                          style: AppTextStyle.titleMedium,
-                        );
-                      },
-                    ),
-
-                  ],
-                ),
-              )
-            ],
-          ),
-          Form(
-           //  key: formkey,
-            child: Column(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
               children: [
-                CustomTextfield(
-                  hint: "Enter User Name ",
-                  controller: name,
-                  onChanged: (value) {
-                    nameValue.value = value;
-                  },
+                Container(
+                  height: 144,
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 2 , color: Colors.white),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Lottie.asset("assets/lottie/image_picker.json"),
+                  ),
                 ),
-                CustomTextfield(
-                  hint: "Enter User Email",
-                  controller: email,
-                  onChanged: (value) {
-                    emailValue.value = value;
-                  },
-                ),
-                CustomTextfield(
-                  hint: "Enter User Phone",
-                  controller: phone,
-                  onChanged: (value) {
-                    phoneValue.value = value;
-                  },
-                ),
-                Row(
-                  children: [
-                    Expanded(child: CustomButton(onPressed: () {
-                      widget.contacts.add(Contact(name: name.text, email: email.text, phone: phone.text));
-                      widget.onAdd();
-                      Navigator.pop(context);
-
-
-                    }, text: "Enter User")),
-                  ],
-                ),
+                SizedBox(width: 8,) ,
+                Expanded(
+                    child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ValueListenableBuilder(
+                        valueListenable: nameValue,
+                        builder: (context, value, child) {
+                          return Text(
+                            value.isEmpty ? " User Name " : value,
+                            style: AppTextStyle.titleMedium,
+                          );
+                        },
+                      ),
+                      Divider(color: AppColor.gold),
+                      ValueListenableBuilder(
+                        valueListenable: emailValue,
+                        builder: (context, value, child) {
+                          return Text(
+                            value.isEmpty ? " User Email" : value,
+                            style: AppTextStyle.titleMedium,
+                          );
+                        },
+                      ),
+                      Divider(color: AppColor.gold),
+                      ValueListenableBuilder(
+                        valueListenable: phoneValue,
+                        builder: (context, value, child) {
+                          return Text(
+                            value.isEmpty ? "User Phone" : value,
+                            style: AppTextStyle.titleMedium,
+                          );
+                        },
+                      ),
+        
+                    ],
+                  ),
+                )
               ],
             ),
-          ),
-         // Expanded(child: CustomButton(onPressed: () {}, text: "Enter User")),
-        ],
+            Form(
+             //  key: formkey,
+              child: Column(
+                children: [
+                  CustomTextfield(
+                    hint: "Enter User Name ",
+                    controller: name,
+                    onChanged: (value) {
+                      nameValue.value = value;
+                    },
+                  ),
+                  CustomTextfield(
+                    hint: "Enter User Email",
+                    controller: email,
+                    onChanged: (value) {
+                      emailValue.value = value;
+                    },
+                  ),
+                  CustomTextfield(
+                    hint: "Enter User Phone",
+                    controller: phone,
+                    onChanged: (value) {
+                      phoneValue.value = value;
+                    },
+                  ),
+                  Row(
+                    children: [
+                      Expanded(child: CustomButton(onPressed: () {
+                        widget.contacts.add(Contact(name: name.text, email: email.text, phone: phone.text));
+                        widget.onAdd();
+                        Navigator.pop(context);
+        
+        
+                      }, text: "Enter User")),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+           // Expanded(child: CustomButton(onPressed: () {}, text: "Enter User")),
+          ],
+        ),
       ),
     );
   }
