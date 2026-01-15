@@ -3,6 +3,9 @@ import 'package:contacts/model/contact.dart';
 import 'package:contacts/widget/custom_appbar.dart';
 import 'package:contacts/widget/custom_buttomsheet.dart';
 import 'package:contacts/widget/custom_card.dart';
+import 'package:contacts/widget/custom_contact_data.dart';
+import 'package:contacts/widget/custom_floatingactionbutton.dart';
+import 'package:contacts/widget/custom_nocontact.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -13,40 +16,64 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-List<Contact> contacts = [];
+  //final int index ;
+  List<Contact> contacts = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.primary,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColor.gold,
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            builder: (context) => CustomBottomSheet(contacts:contacts,onAdd: (){
-              setState(() {
-
-              });
-            },),
-          );
+      floatingActionButton: CustomFloatingactionbutton(
+        addButton: contacts.length < 10,
+        deleteButton: contacts.isNotEmpty,
+        showAddButton: () {
+          print(contacts[0].email); // ?
+          showContactBottomSheet();
         },
-        child: Icon(Icons.add,color: AppColor.primary, ),
+        showDeleteButton: () {
+          deleteLast();
+        },
       ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: AppColor.gold,
+      //   onPressed: () {
+      //     showModalBottomSheet(
+      //       context: context,
+      //       builder: (context) => CustomBottomSheet(contacts:contacts,onAdd: (){
+      //         setState(() {
+      //
+      //         });
+      //       },),
+      //     );
+      //   },
+      //   child: Icon(Icons.add,color: AppColor.primary, ),
+      // ),
       appBar: CustomAppbar(),
-      body: Column(
-          children: [
-
-            Expanded(
-              child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,childAspectRatio: 0.68),
-                itemCount: contacts.length,
-                itemBuilder:(context, index) {
-                return CustomCard(contact: contacts[index]);
-              },),
-            )
-
-
-      ]),
+      body: contacts.isEmpty
+          ? CustomNocontact()
+          : CustomContactData(onDelete: delete),
     );
+  }
+
+  void showContactBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => CustomBottomSheet(
+        contacts: contacts,
+        onAdd: () {
+          setState(() {});
+        },
+      ),
+    );
+  }
+
+  void delete(int index) {
+    contacts.removeAt(index);
+    setState(() {});
+  }
+
+  void deleteLast() {
+    contacts.removeLast();
+    setState(() {});
   }
 }

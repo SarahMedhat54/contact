@@ -23,4 +23,9 @@ abstract class AppTextStyle {
     fontWeight: FontWeight.w400,
     color: AppColor.textButton,
   );
+  static const TextStyle deleteButton = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+    color: AppColor.white,
+  );
 }

@@ -1,16 +1,19 @@
+import 'dart:io';
+
 import 'package:contacts/core/app_color.dart';
 import 'package:contacts/core/app_textstyle.dart';
 import 'package:contacts/model/contact.dart';
 import 'package:contacts/widget/custom_button.dart';
 import 'package:contacts/widget/custom_textfield.dart';
+import 'package:contacts/widget/take_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class CustomBottomSheet extends StatefulWidget {
   List<Contact> contacts;
   VoidCallback onAdd;
-  CustomBottomSheet({required this.contacts,required this.onAdd, super.key});
 
+  CustomBottomSheet({required this.contacts, required this.onAdd, super.key});
 
   @override
   State<CustomBottomSheet> createState() => _CustomBottomSheetState();
@@ -23,6 +26,7 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
   final ValueNotifier<String> nameValue = ValueNotifier("");
   final ValueNotifier<String> emailValue = ValueNotifier("");
   final ValueNotifier<String> phoneValue = ValueNotifier("");
+  File? pickImage ;
 
   @override
   Widget build(BuildContext context) {
@@ -43,17 +47,26 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
                 Container(
                   height: 144,
                   decoration: BoxDecoration(
-                    border: Border.all(width: 2 , color: Colors.white),
+                    border: Border.all(width: 2, color: Colors.white),
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  child: GestureDetector(
-                    onTap: () {},
+                  child: pickImage== null ? GestureDetector(
+                    onTap: () async {
+                      File? tempImage = await TakeImage.gallery();
+                      if(tempImage!=null )
+                        {
+                          pickImage = tempImage ;
+                        }
+                      setState(() {
+
+                      });
+                    },
                     child: Lottie.asset("assets/lottie/image_picker.json"),
-                  ),
+                  ):ClipRRect(child: Image.file(pickImage!),),
                 ),
-                SizedBox(width: 8,) ,
+                SizedBox(width: 8),
                 Expanded(
-                    child: Column(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ValueListenableBuilder(
@@ -85,14 +98,13 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
                           );
                         },
                       ),
-        
                     ],
                   ),
-                )
+                ),
               ],
             ),
             Form(
-             //  key: formkey,
+              //  key: formkey,
               child: Column(
                 children: [
                   CustomTextfield(
@@ -118,19 +130,28 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
                   ),
                   Row(
                     children: [
-                      Expanded(child: CustomButton(onPressed: () {
-                        widget.contacts.add(Contact(name: name.text, email: email.text, phone: phone.text));
-                        widget.onAdd();
-                        Navigator.pop(context);
-        
-        
-                      }, text: "Enter User")),
+                      Expanded(
+                        child: CustomButton(
+                          onPressed: () {
+                            widget.contacts.add(
+                              Contact(
+                                name: name.text,
+                                email: email.text,
+                                phone: phone.text,
+                              ),
+                            );
+                            widget.onAdd();
+                            Navigator.pop(context);
+                          },
+                          text: "Enter User",
+                        ),
+                      ),
                     ],
                   ),
                 ],
               ),
             ),
-           // Expanded(child: CustomButton(onPressed: () {}, text: "Enter User")),
+            // Expanded(child: CustomButton(onPressed: () {}, text: "Enter User")),
           ],
         ),
       ),
