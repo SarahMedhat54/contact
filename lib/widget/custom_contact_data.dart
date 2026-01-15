@@ -5,8 +5,8 @@ import 'custom_card.dart';
 
 class CustomContactData extends StatelessWidget {
   final Function onDelete ;
-   CustomContactData({super.key, required this.onDelete});
-  List<Contact> contacts = [];
+  List<Contact> contacts;
+   CustomContactData({super.key, required this.onDelete,required this.contacts});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,9 @@ class CustomContactData extends StatelessWidget {
             ),
             itemCount: contacts.length,
             itemBuilder: (context, index) {
-              return CustomCard(contact: contacts[index]);
+              return CustomCard(contact: contacts[index],onDelete:(){
+                onDelete(index);
+              });
             },
           ),
         ),

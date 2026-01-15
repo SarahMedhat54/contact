@@ -138,6 +138,7 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
                                 name: name.text,
                                 email: email.text,
                                 phone: phone.text,
+                                image: pickImage,
                               ),
                             );
                             widget.onAdd();

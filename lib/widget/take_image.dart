@@ -16,7 +16,7 @@ class TakeImage {
     PermissionStatus status;
     // if(Platform.isAndroid)
     //   final androidInfo =await DeviceInfoPlong
-    status = await Permission.storage.request();
+    status = await Permission.photos.request();
     if (status.isGranted) {
       var image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image != null) {

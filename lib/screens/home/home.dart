@@ -27,7 +27,6 @@ class _HomeState extends State<Home> {
         addButton: contacts.length < 10,
         deleteButton: contacts.isNotEmpty,
         showAddButton: () {
-          print(contacts[0].email); // ?
           showContactBottomSheet();
         },
         showDeleteButton: () {
@@ -51,7 +50,7 @@ class _HomeState extends State<Home> {
       appBar: CustomAppbar(),
       body: contacts.isEmpty
           ? CustomNocontact()
-          : CustomContactData(onDelete: delete),
+          : CustomContactData(contacts:contacts,onDelete: delete),
     );
   }
 
