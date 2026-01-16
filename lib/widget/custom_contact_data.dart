@@ -16,13 +16,13 @@ class CustomContactData extends StatelessWidget {
           child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: 0.68,
+              childAspectRatio: 0.55,
             ),
             itemCount: contacts.length,
             itemBuilder: (context, index) {
               return CustomCard(contact: contacts[index],onDelete:(){
-                onDelete(index);
-              });
+                  onDelete(index);
+                });
             },
           ),
         ),

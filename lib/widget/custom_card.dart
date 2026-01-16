@@ -14,41 +14,80 @@ class CustomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     //List<Contact> contact = [] ;
     return Card(
-      color: AppColor.gold,
+      margin: EdgeInsets.all(16 ),
+      color: AppColor.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Column(
+        mainAxisSize:MainAxisSize.min ,
         children: [
           Stack(
             children: [
-              contact.image==null?
-                  Lottie.asset('assets/lottie/image_picker.json'):
-              Image.file(contact.image!),
-              //image
-              Text(contact.name, style: AppTextStyle.button),
+              ClipRRect(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                child: contact.image==null?
+                Lottie.asset('assets/lottie/image_picker.json', height: 150,fit: BoxFit.cover):
+                Image.file(contact.image! , height: 150, fit: BoxFit.cover,),
+
+              ),
+              Positioned(
+                left: 0,
+                bottom: 8,
+                right: 0,
+                child: Center(
+                  child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: AppColor.white,
+                        borderRadius:
+                          BorderRadius.vertical(
+                            bottom: Radius.circular(20)
+                          )
+                      ),
+                      child: Text(contact.name, style: AppTextStyle.titleSmall)),
+                ),
+              ),
             ],
           ),
-          Row(
-            children: [
-              Icon(Icons.email_outlined, color: AppColor.primary),
-              Expanded(child: Text(contact.email, style: AppTextStyle.button)),
-            ],
+          SizedBox(height: 10,),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              children: [
+                Icon(Icons.email_outlined, color: AppColor.primary),
+                Expanded(child: Text(contact.email, style: AppTextStyle.titleSmall)),
+              ],
+            ),
           ),
-          Row(
-            children: [
-              Icon(Icons.phone, color: AppColor.primary),
-              Text(contact.phone, style: AppTextStyle.button),
-            ],
+          SizedBox(height: 15,),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              children: [
+                Icon(Icons.phone, color: AppColor.primary),
+                Expanded(child: Text(contact.phone, style: AppTextStyle.titleSmall)),
+              ],
+            ),
           ),
-          ElevatedButton(
-            onPressed: (){
-              onDelete();
-            },
-            child: Text("Delete", style: AppTextStyle.deleteButton),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColor.red,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              )
+          SizedBox(height: 15,),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+            child: Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: (){
+                      onDelete();
+                    },
+                    child: Text("Delete", style: AppTextStyle.deleteButton),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColor.red,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      )
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

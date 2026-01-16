@@ -13,6 +13,7 @@ class CustomBottomSheet extends StatefulWidget {
   List<Contact> contacts;
   VoidCallback onAdd;
 
+
   CustomBottomSheet({required this.contacts, required this.onAdd, super.key});
 
   @override
@@ -27,6 +28,12 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
   final ValueNotifier<String> emailValue = ValueNotifier("");
   final ValueNotifier<String> phoneValue = ValueNotifier("");
   File? pickImage ;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +111,7 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
               ],
             ),
             Form(
-              //  key: formkey,
+               key: formKey,
               child: Column(
                 children: [
                   CustomTextfield(
@@ -113,12 +120,28 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
                     onChanged: (value) {
                       nameValue.value = value;
                     },
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return "Name is required";
+                      }
+                      return null;
+                    },
                   ),
                   CustomTextfield(
                     hint: "Enter User Email",
                     controller: email,
                     onChanged: (value) {
                       emailValue.value = value;
+                    },
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return "Email is required";
+                      }
+                      final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                      if (!emailRegex.hasMatch(value.trim())) {
+                        return "Enter a valid email";
+                      }
+                      return null;
                     },
                   ),
                   CustomTextfield(
@@ -127,22 +150,33 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
                     onChanged: (value) {
                       phoneValue.value = value;
                     },
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return "Phone is required";
+                      }
+                      if (value.length < 11) {
+                        return "Phone must be 11 digits";
+                      }
+                      return null;
+                    },
                   ),
                   Row(
                     children: [
                       Expanded(
                         child: CustomButton(
                           onPressed: () {
-                            widget.contacts.add(
-                              Contact(
-                                name: name.text,
-                                email: email.text,
-                                phone: phone.text,
-                                image: pickImage,
-                              ),
-                            );
-                            widget.onAdd();
-                            Navigator.pop(context);
+                            if (formKey.currentState!.validate()) {
+                              widget.contacts.add(
+                                Contact(
+                                  name: name.text,
+                                  email: email.text,
+                                  phone: phone.text,
+                                  image: pickImage,
+                                ),
+                              );
+                              widget.onAdd();
+                              Navigator.pop(context);
+                            }
                           },
                           text: "Enter User",
                         ),
@@ -152,7 +186,6 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
                 ],
               ),
             ),
-            // Expanded(child: CustomButton(onPressed: () {}, text: "Enter User")),
           ],
         ),
       ),
