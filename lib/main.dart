@@ -1,5 +1,4 @@
 import 'package:contacts/screens/home/home.dart';
-import 'package:contacts/screens/splash/splash.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,7 +13,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:Home(),
+      // routes: Routes.routes,
+      // initialRoute: Routes.home,
+      home: Home(),
+
+
     );
   }
 }

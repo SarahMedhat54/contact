@@ -10,7 +10,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: AppColor.primary,
       leading: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Image.asset("assets/images/logo.png", width: 50,height: 50,),
+        child: Image.asset("assets/images/logo.png", width: 140,height: 140,),
       ),
     );
   }

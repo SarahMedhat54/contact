@@ -1,5 +1,7 @@
+import 'dart:io';
+
 class Contact {
-  final String? image;
+  final File? image;
 
   final String name;
 

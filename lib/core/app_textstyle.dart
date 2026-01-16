@@ -14,13 +14,18 @@ abstract class AppTextStyle {
     color: AppColor.lightBlue,
   );
   static const TextStyle titleSmall = TextStyle(
-    fontSize: 10,
+    fontSize: 12,
     fontWeight: FontWeight.w400,
-    color: AppColor.gold,
+    color: AppColor.primary,
   );
   static const TextStyle button = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w400,
     color: AppColor.textButton,
+  );
+  static const TextStyle deleteButton = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w400,
+    color: AppColor.white,
   );
 }

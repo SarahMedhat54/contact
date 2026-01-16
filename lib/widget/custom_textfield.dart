@@ -7,8 +7,10 @@ class CustomTextfield extends StatelessWidget {
   final TextEditingController controller ;
   final bool obscure = false ;
   final Function(String)? onChanged;
+  final String? Function(String?)? validator;
 
-  CustomTextfield({super.key, required this.hint, required this.controller, this.onChanged});
+
+  CustomTextfield({super.key, required this.hint, required this.controller, this.onChanged, this.validator});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,6 @@ class CustomTextfield extends StatelessWidget {
           fillColor: AppColor.primary,
           hintText: hint,
          hintStyle: AppTextStyle.titleMedium ,
-
          border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
             borderSide: BorderSide(width: 2 , color: AppColor.gold,),

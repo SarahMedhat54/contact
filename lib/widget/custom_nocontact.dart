@@ -11,9 +11,14 @@ class CustomNocontact extends StatelessWidget {
     return Column(
       children: [
         Lottie.asset('assets/lottie/empty_list.json'),
-        Text("There is NO Contact  Added Here ", style: AppTextStyle.titleLarge,),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Text(
+            "There is NO Contact  Added Here ",
+            style: AppTextStyle.titleLarge,
+          ),
+        ),
       ],
-
     );
   }
 }
